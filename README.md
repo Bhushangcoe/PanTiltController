@@ -35,26 +35,52 @@ Connect the FS-iA6B's i-BUS output pin to GPIO 16 (ESP32 RX). Connect each stepp
 1. Install [VS Code](https://code.visualstudio.com/).
 2. Install the **PlatformIO IDE** extension from the VS Code Extensions marketplace.
 3. Clone this repository:
+git clone https://github.com/Bhushangcoe/PanTiltController.git
 
-git clone
- https://github.com/Bhushangcoe/PanTiltController.git
-
- 4. Open the cloned `PanTiltController` folder in VS Code (**File → Open Folder**).
+4. Open the cloned `PanTiltController` folder in VS Code (**File → Open Folder**).
 5. PlatformIO will automatically detect `platformio.ini` and download the required ESP32 toolchain and Arduino framework on first open — just wait for it to finish (see the bottom status bar / Output panel).
 
-## Build and upload
+## Build and upload — VS Code UI
 
-1. Connect your ESP32 to your PC via USB.
-2. In VS Code, use the **PlatformIO icons in the bottom status bar**:
-   - **✓ (checkmark)** — Build the project
-   - **→ (right arrow)** — Upload to the ESP32
-   - **🔌 (plug icon)** — Open Serial Monitor (to view debug output)
+Bottom status bar icons (after opening the project folder):
+- **✓** — Build
+- **→** — Upload
+- **🔌** — Serial Monitor
+- **🗑** — Clean
 
-   Or via terminal:
-   
-pio run # build only
-pio run --target upload # build and upload
-pio device monitor -b 115200 # view live debug output
+## Important commands
+
+### PlatformIO (run inside the `PanTiltController` folder)
+
+| Command | What it does |
+|---|---|
+| `pio run` | Build the project (compile only, no upload) |
+| `pio run --target upload` | Build **and** upload to the connected ESP32 |
+| `pio device monitor -b 115200` | Open serial monitor to see live debug output |
+| `pio run --target upload --target monitor` | Upload, then immediately open serial monitor |
+| `pio run --target clean` | Clean build files (use if you get stale/weird build errors) |
+| `pio device list` | List connected devices/COM ports (useful if upload can't find your board) |
+
+> If `pio` isn't recognized in a plain terminal, use **"PlatformIO: Open PlatformIO Core CLI"** from the Command Palette (`Ctrl+Shift+P`) — this opens a terminal with `pio` guaranteed to work.
+
+### Typical workflow after editing code
+pio run # check it compiles
+pio run --target upload # flash to ESP32
+pio device monitor -b 115200 # watch debug output (Ctrl+C to exit)
+
+
+### Git (for saving/pushing changes)
+
+| Command | What it does |
+|---|---|
+| `git add .` | Stage all changed files |
+| `git commit -m "message"` | Commit staged changes with a description |
+| `git push` | Push commits to GitHub |
+| `git pull` | Pull latest changes from GitHub |
+| `git status` | Check what's changed/staged before committing |
+git add .
+git commit -m "describe what you changed"
+git push
 
 
 ## Tuning
